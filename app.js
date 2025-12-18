@@ -14,15 +14,11 @@ import hpp from 'hpp';
 import { reviewRouter } from './routes/reviewRoutes.js';
 import { ImageRouter } from './routes/upload.js';
 import { webhookCheckout } from './controllers/bookingsController.js';
-import { Tour } from './models/tourModel.js';
+
 dotenv.config({ path: './.env.local' });
 
 export const app = express();
-app.get('/test-speed', async (req, res) => {
-  const tours = await Tour.find().limit(10).lean(); // Query just 10 items
 
-  res.json({ status: 'success', data: tours });
-});
 function sanitizeReqBody(req, res, next) {
   if (req.body && typeof req.body === 'object') {
     req.body = ExpressMongoSanitize.sanitize(req.body);
@@ -50,7 +46,9 @@ app.use(sanitizeReqBody);
 app.use(xss());
 app.use(hpp());
 app.use(express.static('./public'));
-
+app.get('/loaderio-9bc341a1e70db16b8457e4fe2ef54b3f', (req, res) => {
+  res.send('loaderio-9bc341a1e70db16b8457e4fe2ef54b3f');
+});
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
