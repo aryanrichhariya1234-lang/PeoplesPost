@@ -35,7 +35,6 @@ app.post(
 app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
 
-app.use(limiter);
 app.use(sanitizeReqBody);
 
 app.use(xss());
