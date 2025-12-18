@@ -34,11 +34,7 @@ app.post(
 );
 app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
-const limiter = rateLimit({
-  limit: 100000,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from one user.Please try again after 1 hour',
-});
+
 app.use(limiter);
 app.use(sanitizeReqBody);
 
