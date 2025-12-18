@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { User } from './userModel.js';
 
 const tourSchema = new mongoose.Schema(
   {
@@ -79,12 +80,10 @@ const tourSchema = new mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 tourSchema.index({ price: 1, ratingsAverage: -1 });
-// tourSchema.pre('save', async function () {
-//   const guides = await User.find({ _id: { $in: this.guides } });
-//   this.guides = guides;
-// });
-
-// tourSchema.pre('save');
+tourSchema.pre('save', async function () {
+  const guides = await User.find({ _id: { $in: this.guides } });
+  this.guides = guides;
+});
 
 tourSchema.virtual('reviews', {
   ref: 'Review',
