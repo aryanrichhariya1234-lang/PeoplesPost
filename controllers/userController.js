@@ -2,7 +2,7 @@ import JWT from 'jsonwebtoken';
 import { User } from '../models/userModel.js';
 import { catchAsync } from './tourController.js';
 import { HandleError } from '../helpers/error.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { sendEmail } from './email.js';

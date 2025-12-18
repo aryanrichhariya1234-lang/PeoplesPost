@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { Tour } from './tourModel.js';
-import { catchAsync } from '../controllers/tourController.js';
 
 const reviewSchema = new mongoose.Schema({
   review: { type: String, required: [true, 'review is required '] },
