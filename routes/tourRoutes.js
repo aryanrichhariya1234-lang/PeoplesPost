@@ -16,6 +16,7 @@ export const tourRouter = express.Router();
 
 // 1. PUBLIC ROUTES & STATS (No ID needed)
 tourRouter.route('/').get(getTours);
+
 tourRouter.route('/aggregate').get(TourAggregate);
 tourRouter.route('/busiest/:year').get(busiestMonth);
 

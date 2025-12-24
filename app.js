@@ -1,30 +1,21 @@
 /* eslint-disable no-undef */
 import express from 'express';
+import rateLimit from 'express-rate-limit';
+import { xss } from 'express-xss-sanitizer';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import { HandleError } from './helpers/error.js';
 import { tourRouter } from './routes/tourRoutes.js';
 import { userRouter } from './routes/userRoutes.js';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
-import { HandleError } from './helpers/error.js';
-import rateLimit from 'express-rate-limit';
-import helmet from 'helmet';
-import ExpressMongoSanitize from 'express-mongo-sanitize';
-import { xss } from 'express-xss-sanitizer';
 
 import hpp from 'hpp';
+import { webhookCheckout } from './controllers/bookingsController.js';
 import { reviewRouter } from './routes/reviewRoutes.js';
 import { ImageRouter } from './routes/upload.js';
-import { webhookCheckout } from './controllers/bookingsController.js';
-
-dotenv.config({ path: './.env.local' });
 
 export const app = express();
-
-function sanitizeReqBody(req, res, next) {
-  if (req.body && typeof req.body === 'object') {
-    req.body = ExpressMongoSanitize.sanitize(req.body);
-  }
-  next();
-}
+app.use(helmet());
+// app.use(ExpressMongoSanitize());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -33,7 +24,7 @@ app.post(
   express.raw({ type: 'application/json' }),
   webhookCheckout
 );
-app.use(helmet());
+
 app.use(express.json({ limit: '10kb' }));
 const limiter = rateLimit({
   limit: 100,
@@ -41,10 +32,13 @@ const limiter = rateLimit({
   message: 'Too many requests from one user.Please try again after 1 hour',
 });
 app.use(limiter);
-app.use(sanitizeReqBody);
 
 app.use(xss());
-app.use(hpp());
+app.use(
+  hpp({
+    whitelist: ['difficulty', 'price', 'duration'],
+  })
+);
 app.use(express.static('./public'));
 app.get('/loaderio-9bc341a1e70db16b8457e4fe2ef54b3f', (req, res) => {
   res.send('loaderio-9bc341a1e70db16b8457e4fe2ef54b3f');
