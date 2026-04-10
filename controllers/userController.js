@@ -59,8 +59,9 @@ export const login = catchAsync(async (req, res, next) => {
   });
   res.cookie('token', token, {
     httpOnly: true,
-    secure: true, // ✅ MUST
-    sameSite: 'none', // ✅ MUST
+    secure: true, // ✅ REQUIRED for HTTPS (Render)
+    sameSite: 'none', // ✅ REQUIRED for cross-origin
+    path: '/', // ✅ IMPORTANT
   });
 
   res.json({ status: 'success', token });
@@ -69,8 +70,8 @@ export const login = catchAsync(async (req, res, next) => {
 export const protect = catchAsync(async (req, res, next) => {
   let token;
 
-  if (req.cookies.jwt) {
-    token = req.cookies.jwt;
+  if (req.cookies.token) {
+    token = req.cookies.token;
   } else if (req.headers.authorization?.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
   }
