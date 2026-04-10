@@ -57,10 +57,10 @@ export const login = catchAsync(async (req, res, next) => {
   const token = JWT.sign({ id: user._id }, process.env.SECRET, {
     expiresIn: '10d',
   });
-  res.cookie('jwt', token, {
+  res.cookie('token', token, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: false,
+    secure: true, // ✅ MUST
+    sameSite: 'none', // ✅ MUST
   });
 
   res.json({ status: 'success', token });

@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(
   cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://peoplepost-3qzx.vercel.app',
     credentials: true,
   })
 );
