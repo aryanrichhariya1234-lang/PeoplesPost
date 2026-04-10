@@ -72,10 +72,6 @@ function handleProductionError(error, res) {
 app.use((err, req, res, next) => {
   let error = Object.assign(err);
 
-  // if (err.name === 'MongoServerError') {
-  //   const message = err.name;
-  //   return new HandleError(400, message);
-  // }
   if (process.env.NODE_ENV === 'production') {
     if (error.name === 'CastError') {
       const message = `For this ${error.path} we have invalid id ,${error.value}`;

@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env.local' });
 import mongoose from 'mongoose';

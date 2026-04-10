@@ -10,14 +10,12 @@ export const getDashboardInsights = async (req, res) => {
   try {
     const CACHE_KEY = 'dashboard:insights';
 
-    // ================== ⚡ CHECK CACHE ==================
     const cached = await redis.get(CACHE_KEY);
 
     if (cached) {
       return res.json(cached);
     }
 
-    // ================== 📊 AGGREGATION ==================
     const cityStats = await Post.aggregate([
       { $group: { _id: '$city', count: { $sum: 1 } } },
       { $sort: { count: -1 } },
@@ -33,7 +31,6 @@ export const getDashboardInsights = async (req, res) => {
       { $sort: { count: -1 } },
     ]);
 
-    // ================== 📈 TREND ==================
     const now = new Date();
 
     const last7Days = new Date(now);
@@ -55,16 +52,13 @@ export const getDashboardInsights = async (req, res) => {
         ? 100
         : ((currentWeek - previousWeek) / previousWeek) * 100;
 
-    // ================== 🎯 IMPACT ==================
     const totalReports = await Post.countDocuments();
     const estimatedImpact = totalReports * 50;
 
-    // ================== 🚨 PRIORITY ==================
     let priority = 'LOW';
     if (trend > 30 || totalReports > 20) priority = 'HIGH';
     else if (trend > 10) priority = 'MEDIUM';
 
-    // ================== 🤖 PROMPT ==================
     const prompt = `
 You are a smart city decision intelligence system.
 
@@ -87,7 +81,6 @@ Impact: ${estimatedImpact}
 Priority: ${priority}
 `;
 
-    // ================== 🤖 AI ==================
     let insights = 'AI unavailable';
 
     try {
@@ -112,7 +105,6 @@ Priority: ${priority}
       },
     };
 
-    // ================== ⚡ SAVE CACHE ==================
     await redis.set(CACHE_KEY, result, { ex: 900 }); // 15 min
 
     res.json(result);

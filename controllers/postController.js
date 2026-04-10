@@ -41,12 +41,10 @@ export const getAllPosts = catchAsync(async (req, res, next) => {
     });
   }
 
-  // 2. Fetch from DB
   const posts = await Post.find()
     .populate('user', 'name')
     .sort({ createdAt: -1 });
 
-  // 3. Store in cache (TTL = 30 mins)
   await redis.set('posts', posts, { ex: 1800 });
 
   res.status(200).json({
@@ -64,12 +62,10 @@ export const updatePost = catchAsync(async (req, res, next) => {
     return res.status(404).json({ msg: 'Post not found' });
   }
 
-  // ✅ FIX: allow owner OR official
   if (post.user.toString() !== req.user.id && req.user.role !== 'official') {
     return res.status(401).json({ msg: 'Unauthorized' });
   }
 
-  // ✅ update fields safely
   if (description !== undefined) post.description = description;
   if (images !== undefined) post.images = images;
   if (status !== undefined) post.status = status;
@@ -121,10 +117,8 @@ export const toggleLike = async (req, res) => {
   );
 
   if (alreadyLiked) {
-    // ❌ REMOVE LIKE
     post.likes = post.likes.filter((like) => like.user.toString() !== userId);
   } else {
-    // ✅ ADD LIKE
     post.likes.push({ user: userId });
   }
 
