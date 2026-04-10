@@ -5,26 +5,25 @@ import { xss } from 'express-xss-sanitizer';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { HandleError } from './helpers/error.js';
-import { tourRouter } from './routes/tourRoutes.js';
+import cors from 'cors';
 import { userRouter } from './routes/userRoutes.js';
-
+import aiRouter from './routes/aiRoutes.js';
 import hpp from 'hpp';
-import { webhookCheckout } from './controllers/bookingsController.js';
-import { reviewRouter } from './routes/reviewRoutes.js';
-import { ImageRouter } from './routes/upload.js';
+
+import { postRouter } from './routes/postRoutes.js';
+import cookieParser from 'cookie-parser';
 
 export const app = express();
 app.use(helmet());
 // app.use(ExpressMongoSanitize());
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
-app.post(
-  '/webhook-checkout',
-  express.raw({ type: 'application/json' }),
-  webhookCheckout
+app.use(cookieParser());
+app.use(morgan('dev'));
+app.use(
+  cors({
+    origin: 'http://localhost:3001',
+    credentials: true,
+  })
 );
-
 app.use(express.json({ limit: '10kb' }));
 const limiter = rateLimit({
   limit: 100,
@@ -43,10 +42,10 @@ app.use(express.static('./public'));
 app.get('/loaderio-9bc341a1e70db16b8457e4fe2ef54b3f', (req, res) => {
   res.send('loaderio-9bc341a1e70db16b8457e4fe2ef54b3f');
 });
-app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/ai', aiRouter);
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/reviews', reviewRouter);
-app.use('/api/v1/upload', ImageRouter);
+app.use('/api/v1/posts', postRouter);
+
 app.use((req, res, next) => {
   const err = new HandleError(
     404,

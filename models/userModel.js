@@ -23,8 +23,15 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin', 'lead-guide', 'guide'],
-    default: 'user',
+    enum: ['citizen', 'official'],
+
+    required: true,
+  },
+  governmentId: {
+    type: String,
+    required: function () {
+      return this.role === 'official';
+    },
   },
   active: { type: Boolean },
   photo: String,

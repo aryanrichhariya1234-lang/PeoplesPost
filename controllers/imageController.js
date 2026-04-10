@@ -1,4 +1,4 @@
-import { Tour } from '../models/tourModel.js';
+import { Post } from '../models/postModel.js';
 import { User } from '../models/userModel.js';
 
 export const storeMetaDataUser = async (req, res) => {
@@ -26,7 +26,7 @@ export const storeMetaDataTour = async (req, res) => {
     return res.status(400).json({ message: 'Missing fields' });
   }
   const id = req.params.id;
-  const image = await Tour.updateOne(
+  const image = await Post.updateOne(
     { _id: id },
     {
       url,

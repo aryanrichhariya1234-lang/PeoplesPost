@@ -1,0 +1,268 @@
+[
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Pothole",
+    "city": "Mumbai",
+    "Address": "Andheri East",
+    "description": "Large pothole causing traffic issues",
+    "likes": [{}, {}, {}],
+    "createdAt": "2026-04-01"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Garbage",
+    "city": "Delhi",
+    "Address": "Dwarka",
+    "description": "Garbage not collected for days",
+    "likes": [{}],
+    "createdAt": "2026-04-01"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Streetlight",
+    "city": "Mumbai",
+    "Address": "Bandra",
+    "description": "Streetlight not working",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-02"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Garbage",
+    "city": "Mumbai",
+    "Address": "Kurla",
+    "description": "Overflowing garbage bins",
+    "likes": [],
+    "createdAt": "2026-04-02"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Public Safety",
+    "city": "Bangalore",
+    "Address": "Whitefield",
+    "description": "Unsafe pedestrian crossing",
+    "likes": [{}, {}, {}, {}],
+    "createdAt": "2026-04-03"
+  },
+
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Pothole",
+    "city": "Delhi",
+    "Address": "Rohini",
+    "description": "Road badly damaged",
+    "likes": [{}],
+    "createdAt": "2026-04-03"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Garbage",
+    "city": "Mumbai",
+    "Address": "Dadar",
+    "description": "Garbage smell issue",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-04"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Water and Drainage",
+    "city": "Chennai",
+    "Address": "T Nagar",
+    "description": "Water leakage on road",
+    "likes": [],
+    "createdAt": "2026-04-04"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Pothole",
+    "city": "Mumbai",
+    "Address": "Ghatkopar",
+    "description": "Dangerous pothole",
+    "likes": [{}, {}, {}],
+    "createdAt": "2026-04-05"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Streetlight",
+    "city": "Delhi",
+    "Address": "Saket",
+    "description": "Streetlight flickering",
+    "likes": [{}],
+    "createdAt": "2026-04-05"
+  },
+
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Pothole",
+    "city": "Mumbai",
+    "Address": "Powai",
+    "description": "Multiple potholes",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-06"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Garbage",
+    "city": "Delhi",
+    "Address": "Karol Bagh",
+    "description": "Garbage overflow",
+    "likes": [{}],
+    "createdAt": "2026-04-06"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Public Safety",
+    "city": "Bangalore",
+    "Address": "Indiranagar",
+    "description": "Broken traffic signal",
+    "likes": [{}, {}, {}],
+    "createdAt": "2026-04-07"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Water and Drainage",
+    "city": "Mumbai",
+    "Address": "Malad",
+    "description": "Drainage blocked",
+    "likes": [{}],
+    "createdAt": "2026-04-07"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Streetlight",
+    "city": "Chennai",
+    "Address": "Velachery",
+    "description": "No streetlight",
+    "likes": [],
+    "createdAt": "2026-04-08"
+  },
+
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Pothole",
+    "city": "Mumbai",
+    "Address": "Borivali",
+    "description": "Deep pothole",
+    "likes": [{}, {}, {}],
+    "createdAt": "2026-04-08"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Garbage",
+    "city": "Bangalore",
+    "Address": "BTM",
+    "description": "Garbage not cleared",
+    "likes": [{}],
+    "createdAt": "2026-04-09"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Public Safety",
+    "city": "Delhi",
+    "Address": "Connaught Place",
+    "description": "Unsafe crossing",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-09"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Water and Drainage",
+    "city": "Mumbai",
+    "Address": "Thane",
+    "description": "Water logging",
+    "likes": [{}],
+    "createdAt": "2026-04-10"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Streetlight",
+    "city": "Mumbai",
+    "Address": "Chembur",
+    "description": "Streetlight broken",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-10"
+  },
+
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Pothole",
+    "city": "Bangalore",
+    "Address": "Yelahanka",
+    "description": "Road damage",
+    "likes": [{}],
+    "createdAt": "2026-04-11"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Garbage",
+    "city": "Delhi",
+    "Address": "Lajpat Nagar",
+    "description": "Garbage dumped illegally",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-11"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Public Safety",
+    "city": "Mumbai",
+    "Address": "Colaba",
+    "description": "Broken railing",
+    "likes": [{}, {}, {}],
+    "createdAt": "2026-04-12"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Water and Drainage",
+    "city": "Chennai",
+    "Address": "Adyar",
+    "description": "Drain overflow",
+    "likes": [{}],
+    "createdAt": "2026-04-12"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Streetlight",
+    "city": "Mumbai",
+    "Address": "Vile Parle",
+    "description": "Streetlight off",
+    "likes": [],
+    "createdAt": "2026-04-13"
+  },
+
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Pothole",
+    "city": "Delhi",
+    "Address": "Janakpuri",
+    "description": "Deep pothole",
+    "likes": [{}, {}],
+    "createdAt": "2026-04-13"
+  },
+  {
+    "user": "69d939d093c57028418633ec",
+    "category": "Garbage",
+    "city": "Mumbai",
+    "Address": "Santacruz",
+    "description": "Garbage issue",
+    "likes": [{}],
+    "createdAt": "2026-04-14"
+  },
+  {
+    "user": "69d9397493c57028418633d4",
+    "category": "Public Safety",
+    "city": "Bangalore",
+    "Address": "Electronic City",
+    "description": "Open wires",
+    "likes": [{}, {}, {}],
+    "createdAt": "2026-04-14"
+  },
+  {
+    "user": "69d9395d93c57028418633cb",
+    "category": "Water and Drainage",
+    "city": "Mumbai",
+    "Address": "Kandivali",
+    "description": "Water leakage",
+    "likes": [{}],
+    "createdAt": "2026-04-15"
+  }
+]

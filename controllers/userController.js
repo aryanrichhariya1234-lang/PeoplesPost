@@ -1,22 +1,39 @@
 import JWT from 'jsonwebtoken';
 import { User } from '../models/userModel.js';
-import { catchAsync } from './tourController.js';
+
 import { HandleError } from '../helpers/error.js';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import nodemailer from 'nodemailer';
-import { sendEmail } from './email.js';
+import { catchAsync } from '../helpers/helperFunctions.js';
+import { Post } from '../models/postModel.js';
+
 export const signUp = catchAsync(async (req, res) => {
   const user = await User.create({
     name: req.body.name,
     passwordConfirm: req.body.passwordConfirm,
     password: req.body.password,
     email: req.body.email,
+    role: req.body.role,
+    governmentId: req.body.governmentId,
   });
   const payload = { id: user._id };
 
   const token = JWT.sign(payload, process.env.SECRET, { expiresIn: '10d' });
-  res.json({ status: 'success', token: token });
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: false,
+  });
+  res.json({
+    status: 'success',
+    token,
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+  });
 });
 
 export const login = catchAsync(async (req, res, next) => {
@@ -40,12 +57,23 @@ export const login = catchAsync(async (req, res, next) => {
   const token = JWT.sign({ id: user._id }, process.env.SECRET, {
     expiresIn: '10d',
   });
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: false,
+  });
 
   res.json({ status: 'success', token });
 });
 
 export const protect = catchAsync(async (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
+  let token;
+
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  } else if (req.headers.authorization?.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
   if (!token) {
     return next(new HandleError(400, 'Please log in to continue'));
   }
@@ -96,14 +124,7 @@ export const forgotPassword = async (req, res, next) => {
     .digest('hex');
   user.passwordResetTime = Date.now() + 10 * 60 * 1000;
   await user.save({ validateBeforeSave: false });
-  const resetUrl = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/resetPassword/${token}`;
-  await sendEmail({
-    email: user.email,
-    subject: `Your password reset token ${token} Valid for 10mins `,
-    link: resetUrl,
-  });
+
   res.json({ status: 'success', message: 'Token sent to email' });
 };
 
@@ -161,7 +182,7 @@ export const updatePassword = async (req, res, next) => {
   });
   res.cookie('jwt', tokenNew, {
     expires: Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
-    secure: true,
+
     httpOnly: true,
   });
   res.json({ status: 'success', message: 'User updated', token: tokenNew });
@@ -183,4 +204,32 @@ export const updateMe = async (req, res) => {
 export const deleteMe = async (req, res) => {
   const user = await User.deleteOne({ _id: req.user.id });
   res.json({ status: 'success', user });
+};
+
+export const logout = (req, res) => {
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0),
+    sameSite: 'lax',
+    secure: false,
+  });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Logged out successfully',
+  });
+};
+
+export const getMe = async (req, res) => {
+  const user = await User.findById(req.user.id);
+
+  const reports = await Post.find({ user: req.user.id }).sort({
+    createdAt: -1,
+  });
+
+  res.status(200).json({
+    status: 'success',
+    user,
+    data: reports,
+  });
 };
