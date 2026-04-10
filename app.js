@@ -31,7 +31,7 @@ const limiter = rateLimit({
   message: 'Too many requests from one user.Please try again after 1 hour',
 });
 app.use(limiter);
-
+app.set('trust proxy', 1);
 app.use(xss());
 app.use(
   hpp({
