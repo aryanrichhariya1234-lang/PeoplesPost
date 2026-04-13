@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(
   cors({
-    origin: 'https://peoplepost-3qzx.vercel.app',
+    origin: 'https://peoplespost.vercel.app',
     credentials: true,
   })
 );
